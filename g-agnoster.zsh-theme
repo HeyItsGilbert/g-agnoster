@@ -178,4 +178,6 @@ build_prompt() {
 }
 
 PROMPT='%{%f%b%k%}$(build_prompt) '
-RPROMPT="$(battery_level_gauge)"
+if [[ "$OSTYPE" = darwin* ]] ; then
+  RPROMPT="$(battery_level_gauge)"
+fi
