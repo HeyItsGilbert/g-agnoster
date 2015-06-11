@@ -165,9 +165,16 @@ prompt_status() {
   [[ -n "$symbols" ]] && prompt_segment black default "$symbols"
 }
 
+prompt_battery() {
+  if [[ "$OSTYPE" = darwin* ]] ; then
+    battery_level_gauge
+  fi
+}
+
 ## Main prompt
 build_prompt() {
   RETVAL=$?
+  prompt_battery
   prompt_status
   prompt_virtualenv
   prompt_context
@@ -178,6 +185,3 @@ build_prompt() {
 }
 
 PROMPT='%{%f%b%k%}$(build_prompt) '
-if [[ "$OSTYPE" = darwin* ]] ; then
-  RPROMPT="$(battery_level_gauge)"
-fi
